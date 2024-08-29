@@ -1,0 +1,25 @@
+{
+    "name": "send-rpc-notification",
+    "version": "1.0.0",
+    "description": "",
+    "main": "bin/index.js",
+    "scripts": {
+        "exec": "esno index.ts"
+    },
+    "keywords": [],
+    "author": "Jazz877",
+    "license": "MIT",
+    "bin": {
+        "hello": "./bin/index.js"
+    },
+    "dependencies": {
+        "@cosmjs/amino": "^0.32.3",
+        "@cosmjs/crypto": "^0.32.3",
+        "@cosmjs/encoding": "^0.32.3",
+        "@cosmjs/stargate": "^0.32.3"
+    },
+    "devDependencies": {
+        "esno": "^4.7.0",
+        "typescript": "^5.1.3"
+    }
+}
