@@ -4,7 +4,8 @@
     "description": "",
     "main": "bin/index.js",
     "scripts": {
-        "exec": "esno index.ts"
+        "exec": "esno index.ts",
+        "codegen": "esno ./scripts/codegen.ts"
     },
     "keywords": [],
     "author": "Jazz877",
@@ -20,6 +21,7 @@
     },
     "devDependencies": {
         "esno": "^4.7.0",
-        "typescript": "^5.1.3"
+        "typescript": "^5.1.3",
+        "@cosmology/telescope": "^1.8.3"
     }
 }
