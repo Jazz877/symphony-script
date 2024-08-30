@@ -14,14 +14,15 @@ async function getWalletFromMnemonic(): Promise<DirectSecp256k1HdWallet> {
 
 function getMessage(signerAddress: string): EncodeObject {
   const message: EncodeObject = {
-    typeUrl: "/osmosis.market.v1beta1.MsgSwap",
+    typeUrl: "/osmosis.market.v1beta1.MsgSwapSend",
     value: {
-      trader: signerAddress,
-      ask_denom: "uusd",
-      offer_coin: { denom: "note", amount: "1000000" },
+      fromAddress: signerAddress,
+      toAddress: signerAddress,
+      offerCoin: { denom: "note", amount: "1000000" },
+      askDenom: "uusd"
     },
   };
-
+  console.log("message", message);
   return message;
 }
 
@@ -47,7 +48,7 @@ async function run() {
     [message],
     {
       amount: [{ denom: 'note', amount: '1000000' }],
-      gas: "1000",
+      gas: "100000",
     },
   );
 
