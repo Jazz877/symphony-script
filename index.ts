@@ -1,7 +1,8 @@
-import { SigningStargateClient, StargateClient } from "@cosmjs/stargate";
-import { DirectSecp256k1HdWallet, EncodeObject } from "@cosmjs/proto-signing";
+import { AminoTypes, SigningStargateClient, defaultRegistryTypes } from "@cosmjs/stargate";
+import { DirectSecp256k1HdWallet, EncodeObject, Registry } from "@cosmjs/proto-signing";
+import { osmosis } from './codegen';
 
-const mnemonic = "<your mnemonic>";
+const mnemonic = "<mnemonic>";
 const rpcEndpoint = "https://symphony-rpc.kleomedes.network";
 const prefix = "symphony";
 
@@ -25,10 +26,17 @@ function getMessage(signerAddress: string): EncodeObject {
 }
 
 async function run() {
+  const registry = new Registry(defaultRegistryTypes);
+  const aminoTypes = new AminoTypes({
+    ...osmosis.market.v1beta1.AminoConverter
+  });
+  osmosis.market.v1beta1.load(registry);
+
   const wallet = await getWalletFromMnemonic();
   const client = await SigningStargateClient.connectWithSigner(
     rpcEndpoint,
-    wallet
+    wallet,
+    { registry, aminoTypes }
   );
 
   const [{address: signerAddress}] = await wallet.getAccounts();
@@ -39,7 +47,7 @@ async function run() {
     [message],
     {
       amount: [{ denom: 'note', amount: '1000000' }],
-      gas: 'note',
+      gas: "1000",
     },
   );
 
